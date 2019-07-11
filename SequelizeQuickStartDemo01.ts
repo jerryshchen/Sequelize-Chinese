@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+﻿const Sequelize = require('sequelize');
 interface Model {
     database:string;
     username:string;
@@ -62,7 +62,7 @@ User.destroy({
   }).then(() => {
     console.log("Deleted");
   });
-//4.更改所有lastName为空的名字到：“Doe”
+//4.更改所有lastName为“chen”的名字到：“steven”
 User.update({ lastName: "steven" }, {
     where: {
       lastName: "chen"
