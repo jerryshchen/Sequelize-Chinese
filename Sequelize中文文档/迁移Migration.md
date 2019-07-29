@@ -1,5 +1,33 @@
 # 迁移Migration
 
++ [CLI](#CLI)
+  + [安装CLI](#安装CLI)
+  + [引导](#引导)
+    + [配置](#配置)
+  + [创建第一个模型和迁移](#创建第一个模型和迁移)
+  + [运行迁移](#运行迁移)
+  + [回滚迁移](#回滚迁移)
+  + [创建第一个Seed](#创建第一个Seed)
+  + [运行Seeds](#运行Seeds)
+  + [撤销Seeds](#撤销Seeds)
++ [进阶内容](#进阶内容)
+  + [迁移骨架](#迁移骨架)
+  + [\.sequelizerc文件](#\.sequelizerc文件)
+  + [动态配置](#动态配置)
+  + [使用Babel](#使用Babel)
+  + [使用环境变量](#使用环境变量)
+  + [明确方言选项](#明确方言选项)
+  + [生产用法](#生产用法)
+  + [存储](#存储)
+    + [存储migration](#存储migration)
+    + [存储Seed](#存储Seed)
+  + [配置连接字符](#配置连接字符)
+  + [传递具体的方言选项](#传递具体的方言选项)
+  + [编程化用法](#编程化用法)
++ [查询接口](#查询接口)
+
+----
+
 就像你使用Git/SVN来管理你源代码的变化时，你可以使用迁移来跟踪数据的变化。使用迁移，你可以转移你存在的数据库到另一个版本或副本：那些版本的转化被保存在迁移文档中，描述了如何获取新的版本和如何回滚这些改变到老的版本。
 
 你需要使用 [Sequelize CLI](https://github.com/sequelize/cli)。这个CLI工具（CLI ships）支持迁移和工程引导（project bootstrapping）
@@ -27,7 +55,7 @@ $ npm install --save sequelize-cli
 + `migrations`包含所有migrations文件
 + `seeders`包含所有的seeds文件
 
-### 配置
+#### 配置
 
 为了之后的操作，首先，我们需要告诉CLI如何去连接数据库。为了完成它，让我们打开默认的配置文件`config/config.json`。他和下面的示例相似：
 
@@ -545,7 +573,7 @@ module.exports = {
 + `json`：存储migrations和seeds到一个json文件中
 + `none`：不存储任何migrations和seed
 
-### 存储migration
+#### 存储migration
 
 默认情况下，CLI会在你的数据库中创建一个名为`SequelizeMeta`的表，来包含一个为每次执行迁移的入口。为了改变这个行为，你可以在配置文件中添加三个选项。使用`migrationStorage`，你可以选择迁移的存储类型。如果你选择了`json`，你可以使用`migrationStoragePath`来明确文件路径，或者CLI会在`sequelize-meta.json`文件中写入。如果你想保存数据库的数据，使用`sequelize`，但是使用另外一个表，你可以使用`migrationStorageTableName`来改变表格名称。你也可以通过提供`migrationStroageTableSchema`属性为`SequelizeMeta`定义一个不同的schema。
 
@@ -575,7 +603,7 @@ module.exports = {
 
 **注意**：不推荐使用空存储来存储migration。如果你坚持使用的话，注意可能会产生迁移后没有记录或根本无法执行。
 
-### 存储Seed
+#### 存储Seed
 
 默认情况下CLI不会存储任何执行过的Seed文件。如果你想要改变这一行为，你可以在配置文件中使用`seederStorage`来改变存储类型。如果你选择`json`，你可以使用`seederStoragePath`来明确路径，否则的话，CLI会写入到`sequelize-data.json`文件中。如果你想保持数据库的信息，使用`sequelize`，你可以使用`seederStorageTableName`来明确表格名称，否则，它会默认为`SequelizeData`。
 
@@ -618,7 +646,7 @@ $ npx sequelize-cli db:migrate --url 'mysql://root:password@mysql_host.com/datab
 }
 ```
 
-### 编程使用
+### 编程化用法
 
 Sequelize有一个字库 [sister library](https://github.com/sequelize/umzug)。用来编程化处理迁移任务的执行和记录。
 
