@@ -1,5 +1,11 @@
 # TypeScript
 
++ [安装](#安装)
++ [用法](#用法)
++ [sequelize.define的用法](#sequelize.define的用法)
+
+----
+
 从v5开始，Sequelize提供了关于TypeScript的定义。请注意只支持TS3.1以上版本。
 
 因为Sequelize深度依赖运行性能分配，TypeScript不能**“开箱即用”**。需要配置一系列人工的定义来使得模型可用。
